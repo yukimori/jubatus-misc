@@ -1,0 +1,8 @@
+from jubatus.common import Datum
+from jubatus.regression.client import Regression
+import sys
+import math
+
+
+if __name__ == "__main__":
+    main
