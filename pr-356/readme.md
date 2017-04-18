@@ -12,4 +12,4 @@ https://gist.github.com/TkrUdagawa/44d93ccf3d605ccea14eec50ba3ddc1c
 で宇田川君がjubatus_coreを直接呼び出すコードを書いている
 
 テストコードであるinverted_index_storage_test.cppを書き換えて確認．
-コードだけこちらにコピーする
+コードだけこちらにコピーする．
