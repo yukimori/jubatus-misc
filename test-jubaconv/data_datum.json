@@ -1,0 +1,13 @@
+{
+  "binary_values": {
+  },
+  "num_values": {
+    "\/income": 100000,
+    "\/age": 29
+  },
+  "string_values": {
+    "\/name": "Loren Ipsum",
+    "\/message": "<H>Hello World<\/H>",
+    "\/id": "ippy"
+  }
+}

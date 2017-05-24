@@ -1,0 +1,10 @@
+inputのフォーマットがjsonの場合はkeyに"/"がつくので、
+設定ファイルでのkeyでは"/"をつけて考える
+
+例.
+
+dataファイルにおいて "message": "hello world" の場合、
+設定ファイルでは "key" : "/message" で設定する。
+
+-i json -o datum　としてdatum形式のjsonデータ構造を出力すると"/"がいらないかと思ったが、
+出力された時点で "\/message": "hello world" になっているのでいずれにせよ"/"が必要。
