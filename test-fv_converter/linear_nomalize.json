@@ -1,0 +1,37 @@
+{
+	"converter" : {
+		"num_filter_types" : {
+			"temp_ave_filter": {
+				"method": "linear_normalization",
+				"max": "23.6",
+				"min": "10.0"},
+			"temp_max_filter": {
+				"method": "linear_normalization",
+				"max": "33.6",
+				"min": "26.4"},
+			"temp_min_filter": {
+				"method": "linear_normalization",
+				"max": "14.3",
+				"min": "-4.6"},
+			"precipitation_filter": {
+				"method": "linear_normalization",
+				"max": "3664",
+				"min": "1004"},
+			"days_rainny_filter": {
+				"method": "linear_normalization",
+				"max": "174",
+				"min": "100.0"}
+		},
+		"num_filter_rules" : [
+			{"key": "temp_ave", "type": "temp_ave_filter", "suffix": "-linear_normalized"},
+			{"key": "temp_max", "type": "temp_max_filter", "suffix": "-linear_normalized"},
+			{"key": "temp_min", "type": "temp_min_filter", "suffix": "-linear_normalized"},
+			{"key": "precipitation", "type": "precipitation_filter", "suffix": "-linear_normalized"},
+			{"key": "days_rainny", "type": "days_rainny_filter", "suffix": "-linear_normalized"}
+		],
+		"num_types" : {},
+		"num_rules" : [
+			{"key" : "*-linear_normalized", "type" : "num"}
+		]
+	}
+}

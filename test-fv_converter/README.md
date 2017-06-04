@@ -1,0 +1,3 @@
+test_text_fv_converter.py
+
+テキストの特徴抽出をテストするテストコード

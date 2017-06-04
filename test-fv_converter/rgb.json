@@ -1,0 +1,18 @@
+{
+	"converter": {
+		"binary_types": {
+			"rgb": {
+				"method": "dynamic",
+				"path": "libimage_feature.so",
+				"function": "create",
+				"algorithm": "RGB",
+				"resize": "true",
+				"x_size": "120.0",
+				"y_size": "120.0"
+			}
+		},
+		"binary_rules": [
+			{"key": "*", "type": "rgb"}
+		]
+	}
+}

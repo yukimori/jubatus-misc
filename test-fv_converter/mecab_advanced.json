@@ -1,0 +1,18 @@
+{
+	"converter" : {
+		"string_filter_types" : {},
+		"string_filter_rules" : [],
+		"string_types" : {
+			"mecab": {
+				"method": "dynamic",
+				"path": "/usr/local/lib/jubatus/plugin/libmecab_splitter.dylib",
+				"function": "create",
+				"exclude_features": "記号,*|助詞,*",
+				"base": "true"
+			}
+		},
+		"string_rules" : [
+			{ "key" : "*", "type" : "mecab", "sample_weight" : "bin", "global_weight" : "bin" }
+		]
+	}
+}
