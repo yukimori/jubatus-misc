@@ -6,3 +6,6 @@ or
 
 g++ shogun_client.cpp -L ~/jubatus/lib -L ~/jubatus/core/lib -lmsgpack -ljubatus_mpio -ljubatus_msgpack-rpc
 
+jubatusbook上は
+
+g++ main.cpp -o main `pkg-config jubatus-client --libs --cflags`
