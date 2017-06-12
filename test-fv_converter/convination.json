@@ -1,0 +1,19 @@
+{
+    "converter": {
+	"num_types": {},
+	"num_rules": [
+	    {"key": "*", "type": "num"}
+	],
+	"string_types": {},
+	"string_rules": [
+	    {"key": "*", "type": "str", "sample_weight": "bin", "global_weight": "bin"}
+	],
+	"combination_types": {},
+	"combination_rules": [
+	    { "key_left": "*@num", "key_right": "*@num", "type": "add"},
+	    { "key_left": "*@num", "key_right": "*@num", "type": "mul"},
+	    { "key_left": "*@str#bin/bin", "key_right": "*@str#bin/bin", "type": "add"},
+	    { "key_left": "*@str#bin/bin", "key_right": "*@str#bin/bin", "type": "mul"}
+	]
+    }
+}

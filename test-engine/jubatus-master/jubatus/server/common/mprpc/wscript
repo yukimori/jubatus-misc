@@ -1,0 +1,24 @@
+
+def options(opt): pass
+
+def configure(conf): pass
+
+def build(bld):
+  src = 'rpc_mclient.cpp rpc_server.cpp'
+
+  bld.shlib(
+    source = src,
+    target = 'jubaserv_common_mprpc',
+    use = 'ZOOKEEPER_MT JUBATUS_MPIO JUBATUS_MSGPACK-RPC MSGPACK JUBATUS_CORE jubaserv_common_logger',
+    vnum = bld.env['ABI_VERSION'],
+    )
+
+  bld.program(
+    features = 'gtest',
+    source = 'rpc_client_test.cpp',
+    target = 'rpc_client_test',
+    includes = '.',
+    use = 'JUBATUS_MPIO JUBATUS_MSGPACK-RPC MSGPACK JUBATUS_CORE jubaserv_common_mprpc',
+    )
+
+  bld.install_files('${PREFIX}/include/jubatus/server/common/mprpc', bld.path.ant_glob('*.hpp'))

@@ -1,0 +1,17 @@
+# データ構造の定義
+message entry {
+  0: string key
+    1: int value
+    }
+
+# メソッドの定義 (`service` の名称はエンジンの識別子と同一とする)
+service kvs {
+#@cht(1) #@update #@pass
+bool put(0: string key, 1: int value)
+
+#@cht(1) #@analysis #@pass
+entry get(0: string key)
+
+  #@random #@analysis #@pass
+float get_average()
+}

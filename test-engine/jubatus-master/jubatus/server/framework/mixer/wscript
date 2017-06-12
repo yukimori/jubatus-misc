@@ -1,0 +1,38 @@
+# -*- python -*-
+def options(opt):
+  pass
+
+def configure(conf):
+  pass
+
+def build(bld):
+  mixer_framework = 'JUBATUS_CORE MSGPACK jubaserv_common_logger'
+  mixer_source = 'mixer_factory.cpp'
+  if 'HAVE_ZOOKEEPER_H' in bld.env.define_key:
+    mixer_framework += ' jubaserv_common jubaserv_common_mprpc'
+    mixer_source += ' linear_mixer.cpp push_mixer.cpp'
+
+  bld.shlib(target = 'jubaserv_mixer',
+            source = mixer_source,
+            use = mixer_framework,
+            vnum = bld.env['ABI_VERSION'],
+            )
+
+  if 'HAVE_ZOOKEEPER_H' in bld.env.define_key:
+    for name in ['linear_mixer_test', 'push_mixer_test', 'skip_mixer_test']:
+      bld.program(
+        features='gtest',
+        source = name + '.cpp',
+        target = name,
+        use = 'jubaserv_mixer')
+
+  bld.install_files('${PREFIX}/include/jubatus/server/framework/mixer', [
+      'broadcast_mixer.hpp',
+      'dummy_mixer.hpp',
+      'linear_mixer.hpp',
+      'mixer.hpp',
+      'mixer_factory.hpp',
+      'push_mixer.hpp',
+      'random_mixer.hpp',
+      'skip_mixer.hpp',
+  ])

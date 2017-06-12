@@ -1,0 +1,91 @@
+# ==============================================================================
+# Jubatus
+# ==============================================================================
+JUBATUS_VERSION="1.0.3"
+JUBATUS_RELEASE="1"
+JUBATUS_IS_SNAPSHOT="no"
+JUBATUS_CHECKOUT="${JUBATUS_VERSION}"
+
+# ==============================================================================
+# Jubatus Core
+# ==============================================================================
+JUBATUS_CORE_VERSION="1.0.3"
+JUBATUS_CORE_RELEASE="1"
+JUBATUS_CORE_IS_SNAPSHOT="no"
+JUBATUS_CORE_CHECKOUT="${JUBATUS_CORE_VERSION}"
+
+# ==============================================================================
+# jubadump
+# ==============================================================================
+JUBADUMP_VERSION="1.0.2"
+JUBADUMP_RELEASE="1"
+JUBADUMP_IS_SNAPSHOT="no"
+JUBADUMP_CHECKOUT="${JUBADUMP_VERSION}"
+
+# ==============================================================================
+# msgpack
+# ==============================================================================
+MSGPACK_VERSION="0.5.9"
+MSGPACK_RELEASE="1"
+
+# ==============================================================================
+# jubatus-mpio
+# ==============================================================================
+JUBATUS_MPIO_VERSION="0.4.5"
+JUBATUS_MPIO_RELEASE="1"
+JUBATUS_MPIO_IS_SNAPSHOT="no"
+JUBATUS_MPIO_CHECKOUT="${JUBATUS_MPIO_VERSION}"
+
+# ==============================================================================
+# jubatus-msgpack-rpc
+# ==============================================================================
+JUBATUS_MSGPACK_RPC_VERSION="0.4.4"
+JUBATUS_MSGPACK_RPC_RELEASE="1"
+JUBATUS_MSGPACK_RPC_IS_SNAPSHOT="no"
+JUBATUS_MSGPACK_RPC_CHECKOUT="${JUBATUS_MSGPACK_RPC_VERSION}"
+
+# ==============================================================================
+# log4cxx
+# ==============================================================================
+LOG4CXX_VERSION="0.10.0"
+LOG4CXX_RELEASE="1"
+
+# ==============================================================================
+# oniguruma
+# ==============================================================================
+ONIGURUMA_VERSION="5.9.6"
+ONIGURUMA_RELEASE="1"
+
+# ==============================================================================
+# ux
+# ==============================================================================
+UX_VERSION="0.1.9"
+UX_RELEASE="1"
+
+# ==============================================================================
+# mecab
+# ==============================================================================
+MECAB_VERSION="0.996"
+MECAB_RELEASE="1"
+MECAB_URL="https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE"
+
+# ==============================================================================
+# mecab-ipadic
+# ==============================================================================
+MECAB_IPADIC_VERSION="2.7.0.20070801"
+MECAB_IPADIC_RELEASE="1"
+MECAB_IPADIC_ARCHIVE="mecab-ipadic-2.7.0-20070801.tar.gz"
+MECAB_IPADIC_ARCHIVE_DIR="mecab-ipadic-2.7.0-20070801"
+MECAB_IPADIC_URL="https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
+
+# ==============================================================================
+# ZooKeeper
+# ==============================================================================
+ZOOKEEPER_VERSION="3.4.8"
+ZOOKEEPER_RELEASE="1"
+
+# ==============================================================================
+# Jubatus Release (Yum Repository)
+# ==============================================================================
+JUBATUS_RELEASE_VERSION="$(rpm -q --qf '%{version}' --whatprovides redhat-release)" # RHEL version
+JUBATUS_RELEASE_RELEASE="2"

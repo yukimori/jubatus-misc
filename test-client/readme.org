@@ -5,3 +5,4 @@ g++ shogun_client.cpp $(pkg-config --libs --cflags jubatus-client)
 or
 
 g++ shogun_client.cpp -L ~/jubatus/lib -L ~/jubatus/core/lib -lmsgpack -ljubatus_mpio -ljubatus_msgpack-rpc
+

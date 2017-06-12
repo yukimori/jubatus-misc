@@ -1,0 +1,155 @@
+#!/bin/bash
+
+prepare_rpmbuild() {
+	PACKAGE="${1}"; shift
+
+	SOURCES_DIR="${PACKAGER_RPM_DIR}/${PACKAGE}/SOURCES"
+	SPECFILE="${PACKAGER_RPM_DIR}/${PACKAGE}/SPECS/${PACKAGE}.spec"
+	SPECINFILE="${SPECFILE}.in"
+
+	mkdir -p "${SOURCES_DIR}"
+	pushd "${SOURCES_DIR}"
+
+	case "${PACKAGE}" in
+		jubatus )
+			# SPEC file for jubatus package is defined for each RHEL version.
+			SPECINFILE="${SPECFILE}.el${JUBATUS_RELEASE_VERSION}.in"
+
+			rm -rf jubatus
+			git clone https://github.com/jubatus/jubatus.git jubatus
+			pushd jubatus
+			git checkout "${JUBATUS_CHECKOUT}"
+			if [ "${JUBATUS_IS_SNAPSHOT}" = "yes" ]; then
+				JUBATUS_CHECKOUT="$(git rev-parse HEAD)"
+				JUBATUS_CHECKOUT_DATE="$(git log --pretty=format:'%ad' --date=short --max-count=1 HEAD | tr -d '-')"
+				JUBATUS_RELEASE="${JUBATUS_RELEASE}.${JUBATUS_CHECKOUT_DATE}git${JUBATUS_CHECKOUT:0:6}"
+			fi
+			popd
+			tar --create --gzip --exclude-vcs --file "jubatus-${JUBATUS_VERSION}.tar.gz" jubatus
+			rm -rf jubatus
+			;;
+		jubatus-core )
+			rm -rf jubatus_core
+			git clone https://github.com/jubatus/jubatus_core.git jubatus-core
+			pushd jubatus-core
+			git checkout "${JUBATUS_CORE_CHECKOUT}"
+			if [ "${JUBATUS_CORE_IS_SNAPSHOT}" = "yes" ]; then
+				JUBATUS_CORE_CHECKOUT="$(git rev-parse HEAD)"
+				JUBATUS_CORE_CHECKOUT_DATE="$(git log --pretty=format:'%ad' --date=short --max-count=1 HEAD | tr -d '-')"
+				JUBATUS_CORE_RELEASE="${JUBATUS_CORE_RELEASE}.${JUBATUS_CORE_CHECKOUT_DATE}git${JUBATUS_CORE_CHECKOUT:0:6}"
+			fi
+			popd
+			tar --create --gzip --exclude-vcs --file "jubatus-core-${JUBATUS_CORE_VERSION}.tar.gz" jubatus-core
+			rm -rf jubatus-core
+			;;
+        jubadump )
+            rm -rf jubadump
+            git clone https://github.com/jubatus/jubadump.git jubadump
+            pushd jubadump
+			git checkout "${JUBADUMP_CHECKOUT}"
+			if [ "${JUBADUMP_IS_SNAPSHOT}" = "yes" ]; then
+				JUBADUMP_CHECKOUT="$(git rev-parse HEAD)"
+				JUBADUMP_CHECKOUT_DATE="$(git log --pretty=format:'%ad' --date=short --max-count=1 HEAD | tr -d '-')"
+				JUBADUMP_RELEASE="${JUBADUMP_RELEASE}.${JUBADUMP_CHECKOUT_DATE}git${JUBADUMP_CHECKOUT:0:6}"
+			fi
+			popd
+			tar --create --gzip --exclude-vcs --file "jubadump-${JUBADUMP_VERSION}.tar.gz" jubadump
+			rm -rf jubadump
+			;;
+		jubatus-release )
+			;;
+		jubatus-mpio )
+			rm -rf jubatus-mpio
+			git clone https://github.com/jubatus/jubatus-mpio.git jubatus-mpio
+			pushd jubatus-mpio
+			git checkout "${JUBATUS_MPIO_CHECKOUT}"
+			if [ "${JUBATUS_MPIO_IS_SNAPSHOT}" = "yes" ]; then
+				JUBATUS_MPIO_CHECKOUT="$(git rev-parse HEAD)"
+				JUBATUS_MPIO_CHECKOUT_DATE="$(git log --pretty=format:'%ad' --date=short --max-count=1 HEAD | tr -d '-')"
+				JUBATUS_MPIO_RELEASE="1.${JUBATUS_MPIO_CHECKOUT_DATE}git${JUBATUS_MPIO_CHECKOUT:0:6}"
+			fi
+			popd
+			tar --create --gzip --exclude-vcs --file "jubatus-mpio-${JUBATUS_MPIO_VERSION}.tar.gz" jubatus-mpio
+			rm -rf jubatus-mpio
+			;;
+		jubatus-msgpack-rpc )
+			rm -rf jubatus-msgpack-rpc
+			git clone https://github.com/jubatus/jubatus-msgpack-rpc.git jubatus-msgpack-rpc
+			pushd jubatus-msgpack-rpc
+			git checkout "${JUBATUS_MSGPACK_RPC_CHECKOUT}"
+			if [ "${JUBATUS_MSGPACK_RPC_IS_SNAPSHOT}" = "yes" ]; then
+				JUBATUS_MSGPACK_RPC_CHECKOUT="$(git rev-parse HEAD)"
+				JUBATUS_MSGPACK_RPC_CHECKOUT_DATE="$(git log --pretty=format:'%ad' --date=short --max-count=1 HEAD | tr -d '-')"
+				JUBATUS_MSGPACK_RPC_RELEASE="1.${JUBATUS_MSGPACK_RPC_CHECKOUT_DATE}git${JUBATUS_MSGPACK_RPC_CHECKOUT:0:6}"
+			fi
+			popd
+			tar --create --gzip --exclude-vcs --file "jubatus-msgpack-rpc-${JUBATUS_MSGPACK_RPC_VERSION}.tar.gz" jubatus-msgpack-rpc
+			rm -rf jubatus-msgpack-rpc
+			;;
+		msgpack )
+			;;
+		zookeeper-client )
+			;;
+		log4cxx )
+			;;
+		oniguruma )
+			;;
+		ux )
+			;;
+		mecab )
+			wget "${MECAB_URL}" -O "mecab-${MECAB_VERSION}.tar.gz"
+			;;
+		mecab-ipadic )
+			wget "${MECAB_IPADIC_URL}" -O "${MECAB_IPADIC_ARCHIVE}"
+			;;
+		* )
+			echo "Unknown package: "${PACKAGE}""
+			return 1
+	esac
+
+	spec_substitute "${SPECINFILE}" "${SPECFILE}" \
+		JUBATUS_VERSION \
+		JUBATUS_RELEASE \
+		JUBATUS_CORE_VERSION \
+		JUBATUS_CORE_RELEASE \
+		JUBADUMP_VERSION \
+		JUBADUMP_RELEASE \
+		JUBATUS_RELEASE_VERSION \
+		JUBATUS_RELEASE_RELEASE \
+		JUBATUS_MPIO_VERSION \
+		JUBATUS_MPIO_RELEASE \
+		JUBATUS_MSGPACK_RPC_VERSION \
+		JUBATUS_MSGPACK_RPC_RELEASE \
+		MSGPACK_VERSION \
+		MSGPACK_RELEASE \
+		ZOOKEEPER_VERSION \
+		ZOOKEEPER_RELEASE \
+		LOG4CXX_VERSION \
+		LOG4CXX_RELEASE \
+		ONIGURUMA_VERSION \
+		ONIGURUMA_RELEASE \
+		UX_VERSION \
+		UX_RELEASE \
+		MECAB_VERSION \
+		MECAB_RELEASE \
+		MECAB_IPADIC_VERSION \
+		MECAB_IPADIC_RELEASE \
+		MECAB_IPADIC_ARCHIVE \
+		MECAB_IPADIC_ARCHIVE_DIR
+
+	# Download Sources & Patches if the URL is provided in SPEC file
+	spectool -v -v -v -g "${SPECFILE}"
+
+	popd
+}
+
+spec_substitute() {
+	SPECINFILE="${1}"; shift
+	SPECFILE="${1}"; shift
+
+	cp -a "${SPECINFILE}" "${SPECFILE}"
+	for KEY in "${@}"; do
+		VALUE="$(eval echo \$${KEY})"
+		perl -pi -e "s|\@${KEY}\@|${VALUE}|g" "${SPECFILE}"
+	done
+}
